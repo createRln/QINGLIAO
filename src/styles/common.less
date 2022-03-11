@@ -1,0 +1,87 @@
+
+// 本项目中公共模块样式
+body{
+  font-family: "PingFang SC","微软雅黑",arial,sans-serif;
+  font-size: 28px;
+  background: #ffffff;
+}
+
+.bg-common {
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 100% 100%;
+}
+
+.font-weight {
+  font-weight: 600; // 字体是"PingFang SC",会生效
+  // ios上中粗字体
+  // font-family: "PingFangSC-Medium";
+}
+
+.overflow-text{
+  width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+//超过两行打点
+.text-overflow-2{ 
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2;
+}
+
+// 按钮居中
+.common-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// 1px样式
+.onepxBorder{
+  position: relative;
+  &::before {
+    content: "";
+    pointer-events: none; /* 防止点击触发 */
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+    // @media screen and (-webkit-min-device-pixel-ratio: 2){
+      -webkit-transform: (scale(0.5));    
+      transform: (scale(0.5));
+      width: 200%;
+      height: 200%;
+    // }
+    // @media screen and (-webkit-min-device-pixel-ratio: 2){
+    //   -webkit-transform: (scale(0.333));    
+    //   transform: (scale(0.333));
+    //   width: 300%;
+    //   height: 300%;
+    // }
+  }
+}
+
+
+::-webkit-input-placeholder{
+  color:#cccccc;
+  font-family: "PingFangSC-Regular";
+  font-weight: normal;
+}
+:-moz-placeholder{
+  color:#cccccc;
+  font-family: "PingFangSC-Regular";
+  font-weight: normal;
+}
+::-moz-placeholder{
+  color:#cccccc;
+  font-family: "PingFangSC-Regular";
+  font-weight: normal;
+}
