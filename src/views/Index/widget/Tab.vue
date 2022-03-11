@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 10:45:13
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-11 17:24:10
+ * @LastEditTime: 2022-03-11 19:16:49
  * @Description: 
 -->
 <template>
@@ -17,9 +17,10 @@
             <div class="right_search cay-svg-search">
 
             </div>
-            <div class="right_add cay-svg-bottom-tab1">
+            <!-- <div class="right_add cay-svg-bottom-tab1">
                 
-            </div>
+            </div> -->
+            <van-icon size="25" color="#666" name="add-o" />
         </div>
     </div>
 </template>
@@ -42,7 +43,7 @@ const state = reactive({
     justify-content: space-between;
     align-items: center;
     background: #fff;
-    padding: 20px 10px 20px 30px;
+    padding: 20px 30px 20px 30px;
     box-sizing: border-box;
     border-bottom: 1px solid #ededed;
     .tab_left{

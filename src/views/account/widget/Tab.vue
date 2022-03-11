@@ -2,20 +2,20 @@
  * @Author: renlina
  * @Date: 2022-03-11 10:45:13
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-11 17:23:23
+ * @LastEditTime: 2022-03-11 18:55:15
  * @Description: 
 -->
 <template>
     <div class="tab_box">
-        <div class="tab_left">
+        <div class="tab_left" @click="()=>$router.go(-1)">
             &lt;&nbsp;返回
             <!-- <img src="../../../assets/headImg/8.jpeg" alt=""> -->
         </div>
         <div class="tab_center">
             {{$route.meta.title}}
         </div>
-        <div class="tab_right" v-if="props.type == 'login'">
-            <div class="right_text">
+        <div class="tab_right" >
+            <div v-if="props.type == 'login'" @click="()=>$router.push('/register')" class="right_text">
                 注册
             </div>
         </div>
@@ -23,16 +23,17 @@
 </template>
 
 <script setup>
-import {ref,toRefs,reactive,defineProps} from 'vue'
+import {ref,toRefs,reactive} from 'vue'
 const state = reactive({
     name:'111111'
 })
 const props = defineProps({
     type:{
         type:String,
-        default:'login'
+        default:''
     }
 })
+console.log(props.type)
 </script>
 <style lang="less" scoped>
 .tab_box{

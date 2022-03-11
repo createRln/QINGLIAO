@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 11:30:49
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-11 16:31:15
+ * @LastEditTime: 2022-03-11 19:12:50
  * @Description: 
 -->
 <template>
@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import {ref,toRefs,reactive,defineProps} from 'vue'
+import {ref,toRefs,reactive} from 'vue'
 import CommonDate from '@utils/date.js'
 
 const props = defineProps({
@@ -50,6 +50,8 @@ const props = defineProps({
             position: absolute;
             right: -5px;
             top: -10px;
+            // background-image: linear-gradient(90dweg, #6fc6ee 0, #a388b3 100%);
+            // background-image:linear-gradient (90deg, #6fc6ee 0%, #a388b3 100%);
             background: red;
             color: #fff;
             font-size: 24px;

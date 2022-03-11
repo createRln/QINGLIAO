@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-10 15:49:58
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-11 16:57:19
+ * @LastEditTime: 2022-03-11 19:09:03
  * @Description: 
 -->
 <template>
@@ -163,7 +163,7 @@ const getImageUrl = (name)=>{
   padding-top: 130px;
   .list_content{
     background: #fff;
-    padding: 20px 30px;
+    padding: 40px 30px;
     &:active{
       background: #ededed;
     }
