@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 11:35:01
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-11 17:11:23
+ * @LastEditTime: 2022-03-15 11:04:53
  * @Description: 
  */
 const routes = [
@@ -29,6 +29,14 @@ const routes = [
             title: '注册',
         },
         component: ()=> import('@/views/account/register.vue'),
+    },
+    {
+        path: '/chat',
+        name: 'Chat',
+        meta: {
+            title: '',
+        },
+        component: ()=> import('@/views/toChat/index.vue'),
     },
     {
         path: '/:pathMatch(.*)',

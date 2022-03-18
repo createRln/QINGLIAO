@@ -2,12 +2,13 @@
  * @Author: renlina
  * @Date: 2022-03-11 10:45:13
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-15 11:36:14
+ * @LastEditTime: 2022-03-15 11:37:47
  * @Description: 
 -->
 <template>
     <div class="tab_box">
         <div class="tab_left" @click="()=>$router.go(-1)">
+            <!-- &lt;&nbsp;返回 -->
             <van-icon :size="24" name="arrow-left" />
             <!-- <img src="../../../assets/headImg/8.jpeg" alt=""> -->
         </div>
@@ -15,8 +16,8 @@
             {{$route.meta.title}}
         </div>
         <div class="tab_right" >
-            <div v-if="props.type == 'login'" @click="()=>$router.push('/register')" class="right_text">
-                注册
+            <div v-if="props.type == 'person'" @click="()=>$router.push('/register')" class="right_text">
+                <img src="../../../assets/headImg/8.jpeg" alt="">
             </div>
         </div>
     </div>
@@ -46,7 +47,7 @@ console.log(props.type)
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    background: #fff;
+    background: rgba(244, 244, 244, 0.96);
     padding: 20px 10px 20px 30px;
     box-sizing: border-box;
     border-bottom: 1px solid #ededed;
@@ -68,9 +69,12 @@ console.log(props.type)
         justify-content: space-between;
         align-items: center;
         font-size: 36px;
-        .right_search{
-            width: 40px;
-            height: 40px;
+        .right_text{
+            img{
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+            }
         }
         
     }

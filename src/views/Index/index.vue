@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-10 15:49:58
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-11 19:09:03
+ * @LastEditTime: 2022-03-15 14:27:14
  * @Description: 
 -->
 <template>
@@ -19,6 +19,7 @@
 import {ref,toRefs,reactive, onBeforeMount} from 'vue'
 import Tab from './widget/Tab.vue'
 import Content from './widget/Content.vue'
+import Common from '@/utils/common.js'
 const state = reactive({
   dataList:[]
 })
@@ -148,9 +149,7 @@ const initData = ()=>{
   })
 
 }
-const getImageUrl = (name)=>{
-  return new URL(`../../assets/headImg/${name}.jpeg`,import.meta.url).href
-}
+const getImageUrl = Common.getImageUrl
 </script>
 
 <style lang="less" scoped>
