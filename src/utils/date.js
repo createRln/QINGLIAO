@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 16:22:07
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-11 16:44:52
+ * @LastEditTime: 2022-03-25 11:03:38
  * @Description: 
  */
 export default {
@@ -41,6 +41,17 @@ export default {
             showDate = oY + '/' + oM + '/' + oD
         }
         return showDate
+
+    },
+    //选择性隐藏时间间隔差
+    spaceTime(now,curItem){
+        let nowTime = new Date(now)
+        let curItemTime = new Date(curItem)
+        if(nowTime.getTime() > curItemTime.getTime() + (1000 * 60 * 5)){
+            return nowTime //距离当前时间大于5分钟才展示时间
+        }else{  //否则不展示时间
+            return '' 
+        }
 
     }
 }
