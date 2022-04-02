@@ -2,68 +2,30 @@
  * @Author: renlina
  * @Date: 2022-03-25 13:43:33
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-25 17:54:58
+ * @LastEditTime: 2022-04-02 11:04:38
  * @Description: 
 -->
 <template>
-    <div class="chat_tools ">
+    <div class="chat_tools " ref="tools_modal">
         <div class="top onepxBorder" >
             <van-icon v-if="showSound" @click="showSound = !showSound" name="volume-o" :size="20"/>
             <van-icon v-else @click="showSound = !showSound" name="font-o" :size="20" />
             <div class="center_input">
-                <textarea v-model="data.inputFile" v-if="showSound" class="input"></textarea>
+                <textarea ref="sendinput" v-model="data.inputFile" @input="inputChange" v-if="showSound" class="input"></textarea>
                 <div v-else @touchstart="gotouchstart" @touchmove="gotouchmove" @touchend="gotouchend">长按录音</div>
             </div>
             <van-icon name="smile-o" @click="toChangeType('emoji')" :size="25"/>
             <van-icon v-if="!data.inputFile" name="add-o" :size="25" @click="toChangeType('add')"/>
-            <div class="send"  v-if="data.inputFile"> 发送</div>
+            <div class="send" @click="beforeSend(0)"  v-show="data.inputFile"> 发送</div>
         </div>
-        <div class="other_box" v-if="showOtherTools">
-            <template v-if="data.type == 'add'">
-                <div class="logo_box">
-                    <van-icon name="phone-o" color="#999" :size="40"/>     
-                </div>
-                <div  class="logo_box" >
-                    <van-icon name="location-o" color="#999" :size="40"/>  
-                </div>
-                <div  class="logo_box">
-                    <van-icon name="setting-o" color="#999" :size="40" />
-                </div>
-                <div  class="logo_box">
-                    <van-icon name="credit-pay" color="#999" :size="40"/>
-                </div>
-                <div  class="logo_box" >
-                    <van-icon name="apps-o" color="#999" :size="40"/>
-                </div>
-                <div class="logo_box">
-                    <van-icon name="phone-o" color="#999" :size="40"/>     
-                </div>
-                <div  class="logo_box" >
-                    <van-icon name="location-o" color="#999" :size="40"/>  
-                </div>
-                <div  class="logo_box">
-                    <van-icon name="setting-o" color="#999" :size="40" />
-                </div>
-                <div  class="logo_box">
-                    <van-icon name="credit-pay" color="#999" :size="40"/>
-                </div>
-                <div  class="logo_box" >
-                    <van-icon name="apps-o" color="#999" :size="40"/>
-                </div>
-            </template>
-            <template v-if="data.type == 'emoji'">
-                <Emoji @emojiclick="emojiClick"></Emoji>
-            </template>
-            
-        </div>
+        <otherTools v-if="showOtherTools" @emitfile="emitfile" :showOtherTools="showOtherTools" :type="data.type" @emojiclick="emojiClick"></otherTools>
     </div>
 </template>
 
 <script setup>
-import {nextTick, reactive, ref} from 'vue'
+import {nextTick, reactive, ref,onMounted,onBeforeUnmount,watch,inject} from 'vue'
 import Recorder from 'js-audio-recorder';
-import Emoji from './emoji.vue'
-
+import otherTools from './otherTools.vue'
 
 
 let showSound = ref(true)
@@ -74,7 +36,23 @@ let data = reactive({
     inputFile:''
 })
 let  timeOut = null
-
+let tools_modal = ref(null)
+const emit = defineEmits(['tosend','toScrollBottom'])
+onMounted(()=>{
+    document.addEventListener('click',listenClick) //监听点击弹窗以外的地方关闭弹窗
+})
+onBeforeUnmount(()=>{
+    document.removeEventListener('click',listenClick)  //关闭监听点击弹窗以外的地方关闭弹窗
+})
+const listenClick = (e)=>{
+    if(tools_modal.value && !tools_modal.value.contains(e.target) ){
+        if(showOtherTools.value){
+            showOtherTools.value = false
+        }else{
+            return
+        }
+    }
+}
 const gotouchstart = () =>{
     clearTimeout(timeOut)
     timeOut = null
@@ -133,9 +111,63 @@ const toChangeType = (type)=>{
         data.type = type    
     }
 }
+let sendinput = ref(null)
 const emojiClick = (item)=>{
+    let iputStart = sendinput.value.selectionStart
+    let orignValue = data.inputFile
+    console.log(iputStart)
+    // data.inputFile = orignValue.substr(0,iputStart) + item + orignValue.substr(iputStart)
     data.inputFile = data.inputFile + item
+    // nextTick(()=>{
+    //     sendinput.value.selectionStart = iputStart + 1
+    // })
+    // sendinput.value.focus()
+    nextTick(()=>{
+        // sendinput.value.selectionStart = iputStart + item.length - 1
+        // console.log(sendinput.value.selectionStart,item.length)
+    })    
+
+    
 }
+const inputChange = (e)=>{
+    let value = e.target.value
+    let pos = value.indexOf('\n')
+    if(pos !== -1 && data.inputFile.length !== 0){
+        tosend(data.inputFile,0)
+        data.inputFile = ''
+    }
+}
+const beforeSend = (types,value = null)=>{
+    switch(types){
+        case 0:
+            if(data.inputFile.length == 0) return
+            tosend(data.inputFile,types)
+            data.inputFile = ''
+            break;
+        case 1:
+            tosend(value,types)
+            break;
+    }
+
+}
+
+
+const tosend= (value,types)=>{
+    emit('tosend',value,types)
+}
+watch(()=>showOtherTools.value,()=>{
+    if(showOtherTools.value == true){
+        nextTick(()=>{
+            emit('toScrollBottom')
+        })
+    }
+})
+const emitfile = (src)=>{
+    beforeSend(1,src)
+}
+
+
+
 </script>
 
 <style lang="less" scoped>
@@ -179,24 +211,6 @@ const emojiClick = (item)=>{
             background: rgba(111, 198, 238, 0.7);
         }
     }
-    .other_box{
-        height: 450px;
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-        flex-direction: row;
-        padding: 0px 40px 20px 40px;
-        overflow-y: scroll;
-        .logo_box{
-            width: 120px;
-            height: 120px;
-            border-radius: 12px;
-            box-sizing: border-box;
-            padding: 16px;
-            background: #fff;
-            margin: 20px ;
-            margin-right: 0px;
-        }
-    }
+    
 }
 </style>

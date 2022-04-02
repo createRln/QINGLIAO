@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-25 15:48:45
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-25 17:39:29
+ * @LastEditTime: 2022-04-01 17:42:45
  * @Description: 
 -->
 <template>
@@ -13,9 +13,8 @@
     </div>
 </template>
 
-<script setup>
-
-import {defineEmits} from 'vue'
+<script setup lang="ts">
+import {provide} from 'vue'
 const emit = defineEmits(['emojiclick'])
 let emijo = [
     '😀','😁','😂','🤣','😃','😄','😅','😆','😉','😊','😋','😎','😍','😘','😗',
