@@ -2,23 +2,15 @@
  * @Author: renlina
  * @Date: 2022-03-15 11:04:06
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-02 13:59:05
+ * @LastEditTime: 2022-04-06 17:23:06
  * @Description: 
 -->
 <template>
     <div class="content_box">
         <Tab :type="'person'"></Tab>
         <div class="msg_box" ref="msg_box" @click="hiddenOtherTools = false">
-            <div class="msg_single_time" v-for="(item,index) in data.messageList" :key="index" v-viewer :ref="setRef">
-                <div class="msg_time" v-if="item.time">{{CommonDate.dateTime(item.time)}}</div>
-                <div class="msg_item " :class="{msg_left:item.id == 'a',msg_right:item.id == 'b'}">
-                    <img class="headerimg" :src="getImageUrl(item.imgUrl)"  alt="">
-                    <div  class="msg_text">
-                        <div v-if="item.types == 0">{{item.message}}</div>
-                        <img  class="msgimg"  v-if="item.types == 1" :src="item.message"  alt="" >
-                    </div>
-                </div>
-            </div>
+            <MsgItem class="msg_single_time" v-for="(item,index) in data.messageList" :key="index" :item="item">
+            </MsgItem>
         </div>
         <FooterTools @tosend="tosend" @toScrollBottom="scrollBottom" :hiddenOtherTools="hiddenOtherTools"></FooterTools>
     </div>
@@ -28,15 +20,16 @@
 import {ref , reactive} from 'vue'
 import { nextTick, onBeforeMount } from '@vue/runtime-core'
 import Tab from './widget/Tab.vue'
-import Common from '@/utils/common.js'
+// import Common from '@/utils/common.js'
 import CommonDate from '@/utils/date.js'
 import FooterTools from '@/components/footerChatTools.vue'
+import MsgItem from './widget/msgItem.vue'
 const data = reactive({
     messageList:[],
     imgs:[],
     nowDate:new Date()
 })
-const getImageUrl = Common.getImageUrl
+// const getImageUrl = Common.getImageUrl
 let hiddenOtherTools = ref(false)
 onBeforeMount(()=>{
     init()
@@ -142,17 +135,50 @@ const init = ()=>{
 }
 
 const tosend = (value,types)=>{
-    console.log(value,'收到啦收到了',data.messageList)
-    data.messageList.push(
-        {
-            id:'b',
-            imgUrl:'1',
-            message:value,
-            types: types,
-            time: new Date(),
-            tip:0
-        }
-    )
+    // console.log(value,'收到啦收到了',data.messageList)
+    let newMsg = {}
+    switch (types){
+        case 0:
+        case 1:
+            newMsg = {
+                    id:'b',
+                    imgUrl:'1',
+                    message:value,
+                    types: types,
+                    time: new Date(),
+                    tip:0
+                }
+            break;
+        case 2:
+            newMsg = {
+                    id:'b',
+                    imgUrl:'1',
+                    href:value.src,
+                    size:value.size,
+                    name:value.name,
+                    message:'',
+                    types: types,
+                    time: new Date(),
+                    tip:0
+                } 
+            break;
+        case 3:
+            newMsg = {
+                    id:'b',
+                    imgUrl:'1',
+                    href:value,
+                    message:'',
+                    types: types,
+                    time: new Date(),
+                    tip:0
+                } 
+            break;
+
+
+    }
+    data.messageList.push(newMsg)
+    
+   
     nextTick(()=>{
         scrollBottom()
     })
@@ -185,60 +211,7 @@ const tosend = (value,types)=>{
         // display: flex;
         // flex-direction: column;
         // justify-content: flex-end;
-        .msg_single_time{
-            margin-bottom: 40px;
-            .msg_time{
-                color: #999;
-                font-size: 24px;
-                text-align: center;
-                margin-bottom: 40px;
-            }
-            .msg_item{
-                width: 100%;
-                display: flex;
-                justify-content: flex-start;
-                margin-bottom: 20px;
-                .msgimg{
-                    max-width: 400px;
-                    height: auto;
-                    width: auto;
-                    border-radius: 0px;
-                }
-                &.msg_left{
-                    flex-direction: row;
-                    .headerimg{
-                        margin-right: 20px;
-                    }
-                }
-                &.msg_right{
-                    flex-direction: row-reverse;
-                    .headerimg{
-                        margin-left: 20px;
-                    }
-                    .msg_text{
-                        background: #fff;
-                        
-                    }
-                }
-                img{
-                    width: 80px;
-                    height: 80px;
-                    border-radius: 16px;
-                }
-                .msg_text{
-                    font-size: 28px;
-                    color: #666;
-                    line-height: 44px;
-                    border-radius: 16px;
-                    background: rgba(111,198,238, 0.7);
-                    // background-image: linear-gradient(90deg, #6fc6ee 0%, #a388b3 100%);
-                    max-width: calc(100% - 200px);
-                    box-sizing: border-box;
-                    padding: 12px 16px;
-                }
-
-            }
-        }
+        
     }
 }
 </style>

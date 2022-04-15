@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-15 14:25:34
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-02 13:57:55
+ * @LastEditTime: 2022-04-12 14:09:35
  * @Description: 
  */
 export default {
@@ -15,6 +15,7 @@ export default {
             let image = new Image()
             image.src = src
             const canvas = document.createElement('canvas')
+            console.log(1111)
             image.onload = () =>{
                 canvas.width = image.width
                 canvas.height = image.height
@@ -22,8 +23,12 @@ export default {
                 let canvasURL,minifile,blob
                 let quality = 0.99
                 canvasURL = canvas.toDataURL(file.type)
+
                 while(canvasURL.length > 110000 ){
-                    if(quality <= 0.1 ) return
+                    if(quality <= 0.5 ){
+                        console.log('图片尺寸合格')
+                        break;
+                    }
                     quality -= 0.1
                     canvasURL = canvas.toDataURL(file.type,quality)
                 }

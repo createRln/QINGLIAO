@@ -2,18 +2,19 @@
  * @Author: renlina
  * @Date: 2022-04-01 17:09:39
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-02 13:34:36
+ * @LastEditTime: 2022-04-06 15:32:35
  * @Description: 
 -->
 <template>
     <div class="other_box" v-if="props.showOtherTools">
         <template v-if="props.type == 'add'">
             <div class="logo_box">
-                <van-icon name="phone-o" color="#999" :size="40"/>  
-                <input class="file" type="file" multiple @change="fileChange" accept="image/png,image/PNG,image/jpeg,image/gif">    
+                <van-icon name="photo-o" color="#999" :size="40"/>  
+                <input class="file" type="file" multiple @change="(e)=>{imgChange(e,1)}" accept="image/png,image/PNG,image/jpeg,image/gif">    
             </div>
             <div  class="logo_box" >
-                <van-icon name="location-o" color="#999" :size="40"/>  
+                <van-icon name="credit-pay" color="#999" :size="40"/>  
+                <input class="file" type="file" multiple @change="(e)=>{imgChange(e,2)}" accept=".doc,.docx,.excel">    
             </div>
             <div  class="logo_box">
                 <van-icon name="setting-o" color="#999" :size="40" />
@@ -42,20 +43,30 @@ let props = defineProps({
     }
 
 })
-const fileChange= async (e)=>{
+const imgChange= async (e,type)=>{
     let files = e.target.files
     if(files.length > 0){
         for(let ele of files){
-            let src = await readFile(ele)
+            let src = await readFile(ele,type)
             if(src){
-                emit('emitfile',src)
+                switch(type){
+                    case 1:
+                        emit('emitfile',src,type)
+                        break;
+                    case 2:
+                        ele.src = src
+                        console.log(ele)
+                        emit('emitfile',ele,type)
+                        break;
+                }
+                
             }
         }
     }
    
     
 }
-const readFile =  function(file){
+const readFile =  function(file,type){
     return new Promise((reslove,reject)=>{
         let reads= new FileReader()
         let f = file
@@ -63,11 +74,40 @@ const readFile =  function(file){
         let curSrc
         reads.onload = async function(e) {
             curSrc = e.target.result
-            let fileobj = await Common.compressImg(file,curSrc,0.5) //canvasURL,blob,minifile
-            console.log(fileobj,'fileobj---')
-            reslove(fileobj.canvasURL)
+            switch(type){
+                case 1:
+                    let fileobj = await Common.compressImg(file,curSrc,0.5) //canvasURL,blob,minifile
+                    reslove(fileobj.canvasURL)
+                    break;
+                case 2:
+                    reslove(curSrc)
+                    break;
+
+            }
+            
         };
     })
+}
+const fileChange= async(e)=>{
+    let files = e.target.files
+    if(files.length > 0){
+        for(let file of files){
+            let res = await formDataFile(file)
+        }
+    }
+}
+const formDataFile = (file)=>{
+    return new Promise((resolve,reject)=>{
+        // let formData = new FormData()
+        let reads= new FileReader()
+        if(file.size <= 1024 * 1024 * 3){
+            
+        }else{
+            Toast.fail('文件过大，不可超过3MB');
+        }
+        console.log(file,'file====')
+    })
+
 }
 
 </script>

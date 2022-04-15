@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 11:35:01
  * @LastEditors: renlina
- * @LastEditTime: 2022-03-15 11:04:53
+ * @LastEditTime: 2022-04-15 11:20:30
  * @Description: 
  */
 const routes = [
@@ -44,7 +44,18 @@ const routes = [
     }
 
 ]
+const pcPageRouted = [
+    {
+        path: '/edit',
+        name: 'Edit',
+        meta: {
+            title: '富文本编辑器',
+        },
+        component: ()=> import('@/views/PC/edit.vue'),
+    },
+]
 const mainRoutes = [
     ...routes,
+    ...pcPageRouted,
 ]
 export default mainRoutes
