@@ -8,12 +8,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@wangeditor/editor": "^5.0.0",
+    "@wangeditor/editor-for-vue": "^5.1.10",
+    "@wangeditor/plugin-mention": "^1.0.0",
+    "axios": "^0.26.1",
     "js-audio-recorder": "^1.0.7",
     "qrcode.vue": "^3.3.3",
     "v-viewer": "^3.0.10",
     "vant": "^3.4.5",
     "vue": "^3.2.25",
-    "vue-router": "4"
+    "vue-router": "4",
+    "wangeditor": "^4.7.15"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^2.2.0",
@@ -25,5 +30,8 @@
     "sass-loader": "^12.6.0",
     "vite": "^2.8.0",
     "vite-plugin-style-import": "1.4.1"
+  },
+  "peerDependencies": {
+    "@wangeditor/core": "^1.0.0"
   }
 }
