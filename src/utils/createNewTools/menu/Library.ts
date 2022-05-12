@@ -5,7 +5,7 @@
  * @Author: renlina
  * @Date: 2022-04-25 14:17:58
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-29 11:01:56
+ * @LastEditTime: 2022-04-29 13:32:21
  * @Description: 
  */
 
@@ -39,8 +39,8 @@ class Library implements IButtonMenu {
 
     exec(editor: IDomEditor, value: string | boolean) {
         // 设置选择文件的类型
-        const { onSuccess } = editor.getMenuConfig("showLibrary")
-        onSuccess()
+        const { onClick } = editor.getMenuConfig("showLibrary")
+        onClick()
         
     }
 }

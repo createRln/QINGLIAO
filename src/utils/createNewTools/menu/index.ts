@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-04-25 11:41:54
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-29 11:04:10
+ * @LastEditTime: 2022-04-29 13:32:15
  * @Description: 
  */
 import changeLink from './changeLink'
@@ -41,7 +41,7 @@ export const showLibrary = {
       })
   },
   config: {
-    onSuccess: () => {
+    onClick: () => {
     }
   }
 }

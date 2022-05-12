@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-04-15 11:19:45
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-29 11:03:24
+ * @LastEditTime: 2022-04-29 13:32:33
  * @Description: 
 -->
 <template>
@@ -135,7 +135,7 @@
                         }
                     },
                     "showLibrary": {
-                        onSuccess: () => {
+                        onClick: () => {
                             console.log('展示素材库了---')
                         }
                     }

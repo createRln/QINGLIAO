@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-10 14:08:58
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-29 11:22:20
+ * @LastEditTime: 2022-05-12 16:59:27
  * @Description: 
  */
 import { defineConfig } from 'vite'
@@ -49,8 +49,7 @@ export default defineConfig({
         secure: true,
       },
       "/dmz": {
-        // ',
-        target: 'aaaaaa',
+        // target: 'aaaaaa',
         changeOrigin: true,
         secure: true,
       },
