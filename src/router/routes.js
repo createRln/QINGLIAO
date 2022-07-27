@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 11:35:01
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-15 11:20:30
+ * @LastEditTime: 2022-07-20 09:58:50
  * @Description: 
  */
 const routes = [
@@ -53,6 +53,22 @@ const pcPageRouted = [
         },
         component: ()=> import('@/views/PC/edit.vue'),
     },
+    {
+        path: '/nave-ui/index',
+        name: 'Edit',
+        meta: {
+            title: 'nave-ui',
+        },
+        component: ()=> import('@/views/PC/naveUi/nave_ui.vue'),
+    },
+    {
+        path: '/promise',
+        name: 'Promise',
+        meta: {
+            title: 'promise',
+        },
+        component: ()=> import('@/views/PC/promise/index.vue'),
+    }
 ]
 const mainRoutes = [
     ...routes,

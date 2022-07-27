@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-10 14:08:58
  * @LastEditors: renlina
- * @LastEditTime: 2022-05-12 16:59:27
+ * @LastEditTime: 2022-05-13 10:53:45
  * @Description: 
  */
 import { defineConfig } from 'vite'
@@ -10,7 +10,7 @@ import vue from '@vitejs/plugin-vue'
 import { resolve } from 'path'
 import postCssPxToRem from "postcss-pxtorem";
 import styleImport, { VantResolve } from 'vite-plugin-style-import';
-
+import Unocss from 'unocss/vite'
 const Resolve = (dir)=>{
   return resolve(__dirname,dir)
 }
@@ -49,6 +49,7 @@ export default defineConfig({
         secure: true,
       },
       "/dmz": {
+        target: 'http://yapi.rong360.com/mock/1939',
         // target: 'aaaaaa',
         changeOrigin: true,
         secure: true,
@@ -63,5 +64,6 @@ export default defineConfig({
     styleImport({
       resolves: [VantResolve()],
     }),
+    Unocss({ /* options */ }),
   ],
 })
