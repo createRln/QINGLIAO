@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 11:35:01
  * @LastEditors: renlina
- * @LastEditTime: 2022-09-19 17:41:34
+ * @LastEditTime: 2022-11-14 10:44:45
  * @Description: 
  */
 const routes = [
@@ -55,7 +55,7 @@ const pcPageRouted = [
     },
     {
         path: '/nave-ui/index',
-        name: 'Edit',
+        name: 'nave-ui-index',
         meta: {
             title: 'nave-ui',
         },
@@ -82,8 +82,8 @@ const componentRouted = [
     }
 ]
 const mainRoutes = [
-    ...routes,
     ...pcPageRouted,
+    ...routes,
     ...componentRouted,
 ]
 export default mainRoutes
