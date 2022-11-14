@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-04-25 14:20:57
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-28 17:47:58
+ * @LastEditTime: 2022-11-14 13:27:07
  * @Description: 
  */
 import axios from "axios";
@@ -36,10 +36,15 @@ export  const uploadFiles = (editor, files) => {
         formData.append("content", files[0])
         formData.append("ext", ext)
 
-        selfAxios.post("/dmz/v1/robot/GetKoalaUrl", formData).then((response) => {
+        // selfAxios.post("aaa", formData).then((response) => {
 
 
-            let res = response.data;
+            let res = {
+                code: 0,
+                data: {
+                    koala_url: 'https://img1.baidu.com/it/u=3009731526,373851691&fm=253&fmt=auto&app=138&f=JPEG?w=800&h=500'
+                }
+            };
             if (res.code == 0) {
                 let params = {
                     koala_url: res.data.koala_url,
@@ -61,7 +66,7 @@ export  const uploadFiles = (editor, files) => {
                 onSuccess(params)
                 // emit("complete", params)
             }
-        })
+        // })
         
     }
 

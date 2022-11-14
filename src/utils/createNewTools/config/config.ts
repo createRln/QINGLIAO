@@ -30,7 +30,7 @@ export type IUploadConfigForFile = IUploadConfig & {
 // 生成默认配置
 export function genUploadFileConfig(): IUploadConfigForFile {
   return {
-    server: '/dmz/v1/robot/GetKoalaUrl', // server API 地址，需用户配置
+    server: '', // server API 地址，需用户配置
 
     fieldName: 'wangeditor-uploaded-file', // formData 中，文件的 key
     maxFileSize: 20 * 1024 * 1024, // 2M

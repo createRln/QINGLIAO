@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-04-15 11:19:45
  * @LastEditors: renlina
- * @LastEditTime: 2022-11-14 13:13:14
+ * @LastEditTime: 2022-11-14 13:22:37
  * @Description: 
 -->
 <template>
@@ -211,7 +211,7 @@
                 parseLinkUrl: customParseLinkUrl, // 也支持 async 函数
             }
             editorConfig.MENU_CONF["uploadImage"] = {
-                server:'/dmz/v1/robot/GetKoalaUrl',
+                server:'aaa',
                 maxFileSize: 20 * 1024 * 1024, // 2M
                  // 选择文件时的类型限制，默认为 ['image/*'] 。如不想限制，则设置为 []
                 allowedFileTypes: [],

@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-10 14:08:58
  * @LastEditors: renlina
- * @LastEditTime: 2022-11-14 10:46:38
+ * @LastEditTime: 2022-11-14 13:23:21
  * @Description: 
  */
 import { defineConfig } from 'vite'
@@ -47,12 +47,6 @@ export default defineConfig({
       '/wechat':{
         target:'aaa',
         changeOrigin:true,
-        secure: true,
-      },
-      "/dmz": {
-        target: 'http://yapi.rong360.com/mock/1939',
-        // target: 'aaaaaa',
-        changeOrigin: true,
         secure: true,
       },
     }
