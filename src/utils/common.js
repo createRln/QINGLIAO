@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-15 14:25:34
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-12 14:09:35
+ * @LastEditTime: 2022-09-19 18:18:12
  * @Description: 
  */
 export default {
@@ -56,6 +56,25 @@ export default {
     blobToFile(theBlob, fileName, fileType) {
         let file = new window.File([theBlob], fileName, { type: fileType })
         return file;
+    },
+    /** deepClone */
+    _deepClone(source) {
+        let target
+        if (typeof source === 'object') {
+            target = Array.isArray(source) ? [] : {}
+            for (let key in source) {
+                if (source.hasOwnProperty(key)) {
+                if (typeof source[key] !== 'object') {
+                    target[key] = source[key]
+                } else {
+                    target[key] = this._deepClone(source[key])
+                }
+                }
+            }
+        } else {
+            target = source
+        }
+        return target
     }
 
 }

@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-10 14:08:58
  * @LastEditors: renlina
- * @LastEditTime: 2022-05-13 10:53:45
+ * @LastEditTime: 2022-09-19 17:43:54
  * @Description: 
  */
 import { defineConfig } from 'vite'
@@ -23,22 +23,23 @@ export default defineConfig({
       "@styles":Resolve("src/styles"),
       "@assets":Resolve("@/assets"),
       "@utils":Resolve("src/utils"),
+      "@components":Resolve("src/components"),
     }
   },
   css: {
-      // postcss: {
-      //   plugins: [
-      //     postCssPxToRem({
-      //       // rootValue:37.5,
-      //       rootValue:({file})=>{
-      //         return file.indexOf('vant') !== -1 ? 18.75:37.5
-      //       },
-      //       propList: ['*'], // 需要转换的属性，这里选择全部都进行转换
-      //       minPixelValue: 1,
-      //       selectorBalckList: ["van"],
-      //     })
-      //   ]
-      // }
+      postcss: {
+        plugins: [
+          postCssPxToRem({
+            // rootValue:37.5,
+            rootValue:({file})=>{
+              return file.indexOf('vant') !== -1 ? 18.75:37.5
+            },
+            propList: ['*'], // 需要转换的属性，这里选择全部都进行转换
+            minPixelValue: 1,
+            selectorBalckList: ["van"],
+          })
+        ]
+      }
   },
   server:{
     host:'0.0.0.0',

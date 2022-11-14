@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-03-11 11:35:01
  * @LastEditors: renlina
- * @LastEditTime: 2022-07-20 09:58:50
+ * @LastEditTime: 2022-09-19 17:41:34
  * @Description: 
  */
 const routes = [
@@ -68,10 +68,22 @@ const pcPageRouted = [
             title: 'promise',
         },
         component: ()=> import('@/views/PC/promise/index.vue'),
+    },
+]
+
+const componentRouted = [
+    {
+        path: '/example/drable',
+        name: 'Drable',
+        meta: {
+            title: '拖拽',
+        },
+        component: ()=> import('@/views/example/draglable/index.vue'),
     }
 ]
 const mainRoutes = [
     ...routes,
     ...pcPageRouted,
+    ...componentRouted,
 ]
 export default mainRoutes
