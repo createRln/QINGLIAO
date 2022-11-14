@@ -2,12 +2,14 @@
  * @Author: renlina
  * @Date: 2022-04-15 11:19:45
  * @LastEditors: renlina
- * @LastEditTime: 2022-04-29 13:32:33
+ * @LastEditTime: 2022-11-14 13:13:14
  * @Description: 
 -->
 <template>
     <div class="edit_box">
         <div class="icon"></div>
+        <div @click="insertNOde">插入节点</div>
+
         <Toolbar
         style="border-bottom: 1px solid #ccc"
         :editor="editorRef"
@@ -22,12 +24,12 @@
         @onCreated="handleCreated"
         @onChange="handleChange"
         ></Editor>
-        <div class="btn" @click="toSend">发送</div>
-        <mention-modal
+        <!-- <div class="btn" @click="toSend">发送</div> -->
+        <!-- <mention-modal
             v-if="isShowModal"
             @hideMentionModal="hideMentionModal"
             @insertMention="insertMention"
-        ></mention-modal>
+        ></mention-modal> -->
     </div>
 </template>
 
@@ -35,7 +37,7 @@
     import '@wangeditor/editor/dist/css/style.css' // 引入 css
     import { onBeforeUnmount, ref, shallowRef, onMounted, defineComponent,reactive,onBeforeMount ,watch, toRefs} from 'vue'
     import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
-    import { DomEditor,Boot } from '@wangeditor/editor'
+    import { DomEditor,Boot, SlateTransforms } from '@wangeditor/editor'
     import MentionModal from './mentionModal.vue'
 
 
@@ -90,6 +92,40 @@
                         // "menu1"//自定义测试用的
                 ],
             }
+
+            const insertNOde = () => {
+                // state.lastAtIndex = ''
+                let item = {
+                    name: '我是阿啊阿啊',
+                    wx_user_id: '11111'
+                    }
+                const mentionNode = {
+                    type: 'mention', 
+                    value: '我是插入的内容', // 文本
+                    info: { wx_user_id: 'jkjk' }, // 其他信息，自定义
+                    children: [{ text: '' }], // 必须有一个空 text 作为 children
+                }
+
+                editorRef.value.restoreSelection() // 恢复选区
+                let { selection, children } = editorRef.value
+                if (!selection) return
+
+                let { path, offset } = selection.anchor
+                let text = children[path[0]].children[path[1]].text
+                let textForUse = text;
+                if (/@([^@]+)?$/g.test(textForUse)) {
+                    textForUse = textForUse.replace(/@([^@]+)?$/, '')
+                }
+
+                // 删除@xxx部分字符
+                SlateTransforms.delete(editorRef.value, {at: path})
+                SlateTransforms.insertText(editorRef.value, textForUse, {at: path})
+                editorRef.value.move(text.length)
+                
+                // 插入 mention 节点
+                editorRef.value.insertNode(mentionNode)
+                editorRef.value.move(1)
+            }
             
             
             const showMentionModal = ()=> {
@@ -98,21 +134,21 @@
             const hideMentionModal = ()=> {
                 data.isShowModal = false
             }
-            const  insertMention = (id, name)=> {
-                const mentionNode = {
-                    type: 'mention', // 必须是 'mention'
-                    value: name,
-                    info: { id },
-                    children: [{ text: '' }], // 必须有一个空 text 作为 children
-                }
-                const editor = editorRef.value
-                if (editor) {
-                    editor.restoreSelection() // 恢复选区
-                    editor.deleteBackward('character') // 删除 '@'
-                    editor.insertNode(mentionNode) // 插入 mention
-                    editor.move(1) // 移动光标
-                }
-            }
+            // const  insertMention = (id, name)=> {
+            //     const mentionNode = {
+            //         type: 'mention', // 必须是 'mention'
+            //         value: name,
+            //         info: { id },
+            //         children: [{ text: '' }], // 必须有一个空 text 作为 children
+            //     }
+            //     const editor = editorRef.value
+            //     if (editor) {
+            //         editor.restoreSelection() // 恢复选区
+            //         editor.deleteBackward('character') // 删除 '@'
+            //         editor.insertNode(mentionNode) // 插入 mention
+            //         editor.move(1) // 移动光标
+            //     }
+            // }
             const editorConfig = {
                 MENU_CONF: {} ,
                 EXTEND_CONF: {
@@ -275,8 +311,9 @@
                 editorStyle,
                 handleChange,
                 toSend,
+                insertNOde,
                 hideMentionModal,
-                insertMention,
+                // insertMention,
                 showMentionModal,
                 ...toRefs(data)
                 // editorId
