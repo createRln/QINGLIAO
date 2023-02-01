@@ -12,6 +12,8 @@
     "@wangeditor/editor-for-vue": "^5.1.10",
     "@wangeditor/plugin-mention": "^1.0.0",
     "axios": "^0.26.1",
+    "echarts": "^5.4.1",
+    "echarts-gl": "^2.0.9",
     "js-audio-recorder": "^1.0.7",
     "qrcode.vue": "^3.3.3",
     "v-viewer": "^3.0.10",

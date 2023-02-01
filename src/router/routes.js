@@ -69,6 +69,14 @@ const pcPageRouted = [
         },
         component: ()=> import('@/views/PC/promise/index.vue'),
     },
+    {
+        path: '/echart',
+        name: 'echart',
+        meta: {
+            title: 'echart',
+        },
+        component: ()=> import('@/views/PC/echart/index.vue'),
+    },
 ]
 
 const componentRouted = [

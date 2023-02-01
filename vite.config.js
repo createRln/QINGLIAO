@@ -29,15 +29,15 @@ export default defineConfig({
   css: {
       postcss: {
         plugins: [
-          postCssPxToRem({
-            // rootValue:37.5,
-            rootValue:({file})=>{
-              return file.indexOf('vant') !== -1 ? 18.75:37.5
-            },
-            propList: ['*'], // 需要转换的属性，这里选择全部都进行转换
-            minPixelValue: 1,
-            selectorBalckList: ["van"],
-          })
+          // postCssPxToRem({
+          //   // rootValue:37.5,
+          //   rootValue:({file})=>{
+          //     return file.indexOf('vant') !== -1 ? 18.75:37.5
+          //   },
+          //   propList: ['*'], // 需要转换的属性，这里选择全部都进行转换
+          //   minPixelValue: 1,
+          //   selectorBalckList: ["van"],
+          // })
         ]
       }
   },

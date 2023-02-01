@@ -2,7 +2,7 @@
  * @Author: renlina
  * @Date: 2022-04-15 11:19:45
  * @LastEditors: renlina
- * @LastEditTime: 2022-11-14 13:22:37
+ * @LastEditTime: 2022-11-14 14:28:50
  * @Description: 
 -->
 <template>
@@ -112,16 +112,16 @@
 
                 let { path, offset } = selection.anchor
                 let text = children[path[0]].children[path[1]].text
-                let textForUse = text;
-                if (/@([^@]+)?$/g.test(textForUse)) {
-                    textForUse = textForUse.replace(/@([^@]+)?$/, '')
-                }
+                // let textForUse = text;
+                // if (/@([^@]+)?$/g.test(textForUse)) {
+                //     textForUse = textForUse.replace(/@([^@]+)?$/, '')
+                // }
 
                 // 删除@xxx部分字符
                 SlateTransforms.delete(editorRef.value, {at: path})
-                SlateTransforms.insertText(editorRef.value, textForUse, {at: path})
+                SlateTransforms.insertText(editorRef.value, text, {at: path})
                 editorRef.value.move(text.length)
-                
+                console.log(mentionNode,'mentionNode====')
                 // 插入 mention 节点
                 editorRef.value.insertNode(mentionNode)
                 editorRef.value.move(1)
