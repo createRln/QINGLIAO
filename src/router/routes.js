@@ -77,6 +77,14 @@ const pcPageRouted = [
         },
         component: ()=> import('@/views/PC/echart/index.vue'),
     },
+    {
+        path: '/fullscreen',
+        name: 'fullscreen',
+        meta: {
+            title: 'fullscreen',
+        },
+        component: ()=> import('@/views/PC/fullscreen/index.vue'),
+    },
 ]
 
 const componentRouted = [
