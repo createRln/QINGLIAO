@@ -17,13 +17,14 @@
 </template>
 
 <script setup>
-import {ref , reactive} from 'vue'
+import {ref , reactive, getCurrentInstance } from 'vue'
 import { nextTick, onBeforeMount } from '@vue/runtime-core'
 import Tab from './widget/Tab.vue'
 // import Common from '@/utils/common.js'
 import CommonDate from '@/utils/date.js'
 import FooterTools from '@/components/footerChatTools.vue'
 import MsgItem from './widget/msgItem.vue'
+
 const data = reactive({
     messageList:[],
     imgs:[],

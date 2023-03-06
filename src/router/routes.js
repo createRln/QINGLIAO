@@ -1,8 +1,8 @@
 /*
  * @Author: renlina
  * @Date: 2022-03-11 11:35:01
- * @LastEditors: renlina
- * @LastEditTime: 2022-11-14 10:44:45
+ * @LastEditors: RLN
+ * @LastEditTime: 2023-03-06 11:22:58
  * @Description: 
  */
 const routes = [
@@ -13,6 +13,30 @@ const routes = [
             title: '轻聊',
         },
         component: ()=> import('@/views/Index/index.vue'),
+    },
+    {
+        path: '/scroll',
+        name: 'scroll',
+        meta: {
+            title: '滚动测试',
+        },
+        component: ()=> import('@/views/scroll/index.vue'),
+    },
+    {
+        path: '/backtop',
+        name: 'backtop',
+        meta: {
+            title: 'backtop',
+        },
+        component: ()=> import('@/views/backToTopDemo/index.vue'),
+    },
+    {
+        path: '/driver',
+        name: 'driver',
+        meta: {
+            title: 'driver',
+        },
+        component: ()=> import('@/views/driver/index.vue'),
     },
     {
         path: '/login',
@@ -46,7 +70,7 @@ const routes = [
 ]
 const pcPageRouted = [
     {
-        path: '/edit',
+        path: '/edit', //wangEditor的使用
         name: 'Edit',
         meta: {
             title: '富文本编辑器',
@@ -54,7 +78,7 @@ const pcPageRouted = [
         component: ()=> import('@/views/PC/edit.vue'),
     },
     {
-        path: '/nave-ui/index',
+        path: '/nave-ui/index', //nave-ui的使用
         name: 'nave-ui-index',
         meta: {
             title: 'nave-ui',
@@ -70,7 +94,7 @@ const pcPageRouted = [
         component: ()=> import('@/views/PC/promise/index.vue'),
     },
     {
-        path: '/echart',
+        path: '/echart', //图表绘制
         name: 'echart',
         meta: {
             title: 'echart',
@@ -78,12 +102,20 @@ const pcPageRouted = [
         component: ()=> import('@/views/PC/echart/index.vue'),
     },
     {
-        path: '/fullscreen',
+        path: '/fullscreen', //实现全屏展示
         name: 'fullscreen',
         meta: {
             title: 'fullscreen',
         },
         component: ()=> import('@/views/PC/fullscreen/index.vue'),
+    },
+    {
+        path: '/bpmn', //前端绘制流程图
+        name: 'bpmn',
+        meta: {
+            title: 'bpmn',
+        },
+        component: ()=> import('@/views/PC/bpmn/index.vue'),
     },
 ]
 

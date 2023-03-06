@@ -7,6 +7,22 @@
 -->
 <template>
     <div>
+        <video 
+            class="backvideo" 
+            poster="https://admin-tmpl-test.rencaiyoujia.cn/static/img/video-cover.c32e69c8.jpeg" 
+            loop
+            autoplay
+            muted >
+            <source src="https://admin-tmpl-test.rencaiyoujia.cn/static/media/night.4b0a7194.mp4" >
+        </video>
+        <n-button @click="ceshiClick">函数式组件按钮</n-button>
+        <input
+            v-model="_value"
+            placeholder=""
+            placeholder-class="input-placeholder"
+            class="focusInput"
+            v-focus
+        />
         <div class="flex justify-around myfont_size p-4">
             <div>原始参数表</div>
             <div>脱敏表参数</div>
@@ -63,18 +79,27 @@
             </div>
             </n-dynamic-input>
         </n-form>
+        <p>哈哈哈哈赶快复制一下吧，啦啦啦</p>
+        <n-button v-clipboard="'哈哈哈哈赶快复制一下吧，啦啦啦'" v-clipboard:success="handleCopy">点击复制上述内容</n-button>
+        <div v-permission="['admin']">管理员：管理员才能看到的文案</div>
+        <div v-permission="['common']">普通用户：这里是只有普通用户才能看到的文案</div>
+        <div v-permission="['admin','common']">普通用户/管理员：这里是只有普通用户和管理员才能看到的文案</div>
+        <n-button @click="download">点击下载图片</n-button>
+        <input type="file" @change="fileChange">
     </div>
 </template>
 
 <script>
-import {defineComponent,ref,reactive, toRefs, onMounted} from 'vue'
+import {defineComponent,ref,reactive, toRefs, onMounted, getCurrentInstance} from 'vue'
 import {useRoute, useRouter} from 'vue-router'
+import { saveAs } from 'file-saver';
 export default defineComponent({
     setup() {
         const Route = useRoute()
         const data = reactive({
             form:{},
-            addToOptions:  []
+            addToOptions:  [],
+            _value: null
         })
         const refdata = ref({
             dataArr: []
@@ -87,6 +112,55 @@ export default defineComponent({
                     return true
                 }
             }
+        const { proxy } = getCurrentInstance();
+        const ceshiClick = () => {
+            proxy.$TipsDialog({
+                content:"在request.ts触发的函数式组件",
+                handleOk: (str) => {
+                    console.log("点击成功，可以在此处做回调操作。"+str);
+                },
+            });
+        }
+
+        const handleCopy = (e) => {
+            console.log('复制成功啦哈哈哈哈',e.text)
+        }
+
+        const download = () => {
+            saveAs(new Blob(["https://static.rong360.com/upload/png/be/fb/befb8983b8f0b03b0a2b88eeb8166de0.png"],{type: 'text/plain;charset=utf-8'}) , "image.png");
+        }
+        const downloadContentFile = (filename, text) => {
+            let blob = new Blob([text], { type: "application/vnd.ms-excel" });
+            
+            const element = document.createElement("a");
+            const href = URL.createObjectURL(blob);
+            element.href = href;
+            element.setAttribute("download", filename);
+            element.style.display = "none";
+            element.click();
+            //调用这个方法来让浏览器知道不用在内存中继续保留对这个文件的引用了。
+            URL.revokeObjectURL(href);
+
+            element.remove();
+            // saveAs(blob,'文件名====' )
+        };
+        const fileChange = (e) => {
+            let file = e.target.files[0]
+            let reader = new FileReader();
+            //执行读文件的函数，设置编码格式
+            //Excel，需要将文件转为blob或文件流
+            reader.readAsArrayBuffer(file, "UTF-8");
+            //读取文件中的内容
+            reader.onload = function (e) {
+                const content = e.target.result;
+                console.log(content,'content===')
+
+                downloadContentFile(file.name, content);
+            };
+        };
+        
+
+
         onMounted(() => {
             if(type == 'add') {
                 // 是新增的话初始化选项卡数据
@@ -106,7 +180,6 @@ export default defineComponent({
                     value: item
                 }
             })
-            console.log(data.addToOptions,'resSelect---')
         })
         const onCreate = () => {
             return {
@@ -123,7 +196,11 @@ export default defineComponent({
             refdata,
             dynamicInputRule,
             onCreate,
-            selectDaily_param
+            selectDaily_param,
+            ceshiClick,
+            handleCopy,
+            download,
+            fileChange
         }
     }
 })
@@ -133,5 +210,20 @@ export default defineComponent({
 .myfont_size{
     font-size: 18px;
     color: #666;
+}
+.focusInput{
+    border: 1px solid #999;
+}
+.backvideo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    z-index: -1;
 }
 </style>
